@@ -8,10 +8,15 @@ import os
 
 ENTRY = "My smart fridge has WiFi, a camera, and a nutritionist's attitude \u2014 yet the only thing it ever preserves is my shame."
 
+MAX_CHARS = 160
+OUTPUT_PATH = "/output/entry.txt"
+
 
 def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
+    if len(ENTRY) > MAX_CHARS:
+        raise ValueError(f"Entry is {len(ENTRY)} chars, over the {MAX_CHARS}-char limit")
+    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         f.write(ENTRY)
 
 
